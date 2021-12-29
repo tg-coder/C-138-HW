@@ -1,32 +1,23 @@
-
-/*created by prashant shukla */
-
 var paddle2 =10,paddle1=10;
-
 var paddle1X = 10,paddle1Height = 110;
 var paddle2Y = 685,paddle2Height = 70;
-
 var score1 = 0, score2 =0;
 var paddle1Y;
-
 var  playerscore =0;
 var audio1;
-var pcscore =0;
-//ball x and y and speedx speed y and radius
-var ball = {
+var pcscore =0;var ball = {
     x:350/2,
     y:480/2,
     r:20,
     dx:3,
     dy:3
 }
-
-function setup(){
-  var canvas =  createCanvas(700,600);
+function setup()
+{
+canvas =  createCanvas(700,600);
 }
-
-
-function draw(){
+function draw()
+{
 
  background(0); 
  fill("black");
@@ -65,11 +56,21 @@ function draw(){
    //function move call which in very important
     move();
 }
-
-
+function setup()
+{
+canvas = createCanvas(600,300);
+video = createCapture(VIDEO);
+video.size(600,300);
+poseNet = ml5.poseNet(video, modelLoaded);
+}
+function modelLoaded()
+{
+  console.log("Model Loaded!");
+}
 
 //function reset when ball does notcame in the contact of padde
-function reset(){
+function reset()
+{
    ball.x = width/2+100,
    ball.y = height/2+100;
    ball.dx=3;
@@ -79,7 +80,8 @@ function reset(){
 
 
 //function midline draw a line in center
-function midline(){
+function midline()
+{
     for(i=0;i<480;i+=10) {
     var y = 0;
     fill("white");
@@ -90,7 +92,8 @@ function midline(){
 
 
 //function drawScore show scores
-function drawScore(){
+function drawScore()
+{
     textAlign(CENTER);
     textSize(20);
     fill("white");
@@ -103,7 +106,8 @@ function drawScore(){
 
 
 //very important function of this game
-function move(){
+function move()
+{
    fill(50,350,0);
    stroke(255,0,0);
    strokeWeight(0.5);
@@ -139,7 +143,10 @@ if(pcscore ==4){
        ball.dy =- ball.dy;
    }   
 }
-
+function parent()
+{
+  cnv.parent('canvas_holder');
+}
 
 //width height of canvas speed of ball 
 function models(){
