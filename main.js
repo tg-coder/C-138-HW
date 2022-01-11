@@ -1,4 +1,7 @@
 var paddle2 =10,paddle1=10;
+wristX = "";
+wristY = "";
+wristScore = "";
 var paddle1X = 10,paddle1Height = 110;
 var paddle2Y = 685,paddle2Height = 70;
 var score1 = 0, score2 =0;
@@ -23,7 +26,7 @@ function draw()
  fill("black");
  stroke("black");
  rect(680,0,20,700);
-
+game_status = "";
  fill("black");
  stroke("black");
  rect(0,0,20,700);
@@ -56,18 +59,41 @@ function draw()
    //function move call which in very important
     move();
 }
+function startGame()
+{
+  game_status = "start";
+  document.getElementById("status").innerHTML = "The game has loaded!";
+}
 function setup()
 {
 canvas = createCanvas(600,300);
 video = createCapture(VIDEO);
 video.size(600,300);
 poseNet = ml5.poseNet(video, modelLoaded);
+poseNet.on('pose',gotPoses);
+}
+function gotPoses()
+{
+  if(results>0)
+  {
+    console.log(results);
+    wristX = results[0].pose.wrist.X;
+    wristY = results[0].pose.wrist.Y;
+  }
 }
 function modelLoaded()
 {
   console.log("Model Loaded!");
 }
-
+function draw()
+{
+  if(wristScore>0.2)
+  {
+    fill("#b699ff");
+    stroke("#99faff");
+    circle(wristX,wristY,15);
+  }
+}
 //function reset when ball does notcame in the contact of padde
 function reset()
 {
